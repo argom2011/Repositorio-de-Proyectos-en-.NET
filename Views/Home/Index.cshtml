@@ -1,0 +1,99 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Importar Archivo Excel o CSV";
+}
+
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .upload-container {
+        max-width: 500px;
+        margin: 50px auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+
+    h2 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #444;
+    }
+
+    input[type="file"] {
+        display: block;
+        margin: 0 auto 20px auto;
+        border: 2px dashed #ccc;
+        padding: 10px;
+        border-radius: 6px;
+        background: #f9f9f9;
+        cursor: pointer;
+        transition: border-color 0.3s;
+    }
+
+        input[type="file"]:hover {
+            border-color: #007bff;
+        }
+
+    button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+    .message-success {
+        margin-top: 20px;
+        color: green;
+        font-weight: bold;
+    }
+
+    .message-error {
+        margin-top: 20px;
+        color: red;
+        font-weight: bold;
+    }
+</style>
+
+<div class="upload-container">
+    <h2>@ViewBag.Title</h2>
+
+    <form asp-controller="ETL" asp-action="UploadExcel" method="post" enctype="multipart/form-data">
+        <label for="fileInput">Seleccionar archivo (Excel o CSV):</label>
+        <input type="file" id="fileInput" name="file" accept=".xlsx,.csv" required />
+
+        <button type="submit">📂 Importar</button>
+    </form>
+
+    @if (ViewBag.Message != null)
+    {
+        <div class="message-success">
+            <strong>@ViewBag.Message</strong>
+        </div>
+    }
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="message-error">
+            <strong>@ViewBag.Error</strong>
+        </div>
+    }
+</div>
